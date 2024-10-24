@@ -1,0 +1,7 @@
+### Generate Image using Stable Diffusion
+POST http://127.0.0.1:8000/v1/images/generations
+Content-Type: application/json
+
+{
+  "prompt": "A sexy girl with a beautiful smile"
+}
