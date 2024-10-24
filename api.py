@@ -16,9 +16,11 @@ pipe = StableDiffusion3Pipeline.from_pretrained(
     "stabilityai/stable-diffusion-3.5-large-turbo", torch_dtype=torch.bfloat16)
 pipe = pipe.to("mps")
 
+
 class ImageRequest(BaseModel):
     prompt: str
     n: Optional[int] = 4
+
 
 @app.post("/v1/images/generations")
 async def generate_stable_diffusion(request: ImageRequest):
@@ -37,7 +39,7 @@ async def generate_stable_diffusion(request: ImageRequest):
         if not os.path.exists("images"):
             os.makedirs("images")
         filename = datetime.now().strftime(
-            "images/" + request.prompt.replace(" ", "_") + "_%Y%m%d_%H%M%S.png")
+            "images/" + "%Y%m%d_%H%M%S" + request.prompt.replace(" ", "_") + ".png")
         with open(filename, "wb") as f:
             f.write(buffered.getvalue())
 
